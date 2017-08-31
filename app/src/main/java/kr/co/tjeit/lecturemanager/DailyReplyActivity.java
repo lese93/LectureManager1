@@ -7,7 +7,12 @@ import android.widget.TextView;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+
+import kr.co.tjeit.lecturemanager.adapter.ReplyAdapter;
+import kr.co.tjeit.lecturemanager.data.Reply;
 
 public class DailyReplyActivity extends BaseActivity {
 
@@ -15,6 +20,9 @@ public class DailyReplyActivity extends BaseActivity {
     private android.widget.ListView replyListView;
 
     CalendarDay mCalendarDay = null;
+
+    ReplyAdapter mAdapter;
+    List<Reply> mReplyList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +43,11 @@ public class DailyReplyActivity extends BaseActivity {
     public void setValues() {
 
         SimpleDateFormat myDateFormat = new SimpleDateFormat("yyyy년 M월 d일");
-
         dateTxt.setText(myDateFormat.format(mCalendarDay.getDate()));
+
+        mAdapter = new ReplyAdapter(mContext, mReplyList);
+        replyListView.setAdapter(mAdapter);
+
     }
 
     @Override
