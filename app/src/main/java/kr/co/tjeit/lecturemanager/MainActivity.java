@@ -1,5 +1,6 @@
 package kr.co.tjeit.lecturemanager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.widget.Toast;
@@ -27,7 +28,11 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
-                Toast.makeText(mContext, "선택 된 날짜 : " + date.toString(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(mContext, DailyReplyActivity.class);
+                intent.putExtra("클릭된날짜", date);
+                startActivity(intent);
+
+//                Toast.makeText(mContext, "선택 된 날짜 : " + date.toString(), Toast.LENGTH_SHORT).show();
 
             }
         });
