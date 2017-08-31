@@ -12,7 +12,6 @@ import com.facebook.FacebookException;
 import com.facebook.Profile;
 import com.facebook.ProfileTracker;
 import com.facebook.login.LoginResult;
-import com.kakao.auth.Session;
 import com.kakao.usermgmt.LoginButton;
 
 public class LoginActivity extends BaseActivity {
