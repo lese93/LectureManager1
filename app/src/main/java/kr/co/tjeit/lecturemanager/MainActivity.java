@@ -9,12 +9,17 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
+import kr.co.tjeit.lecturemanager.adapter.StudentAdapter;
+import kr.co.tjeit.lecturemanager.util.GlobalData;
+
 // 저만의 브런치 입니다. (조경진)
 
 public class MainActivity extends BaseActivity {
 
     private ListView studentListView;
     private android.widget.Button myProfileBtn;
+
+    StudentAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +84,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setValues() {
-
+        mAdapter = new StudentAdapter(mContext, GlobalData.allUsers);
+        studentListView.setAdapter(mAdapter);
     }
 
     @Override
