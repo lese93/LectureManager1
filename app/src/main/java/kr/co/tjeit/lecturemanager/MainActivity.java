@@ -1,9 +1,16 @@
 package kr.co.tjeit.lecturemanager;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.widget.Toast;
+
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
+import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
 
 public class MainActivity extends BaseActivity {
+
+    private com.prolificinteractive.materialcalendarview.MaterialCalendarView calendarView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,7 +23,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+        calendarView.setOnDateChangedListener(new OnDateSelectedListener() {
+            @Override
+            public void onDateSelected(@NonNull MaterialCalendarView widget, @NonNull CalendarDay date, boolean selected) {
 
+                Toast.makeText(mContext, "선택 된 날짜 : " + date.toString(), Toast.LENGTH_SHORT).show();
+
+            }
+        });
     }
 
     @Override
@@ -26,6 +40,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
+        this.calendarView = (MaterialCalendarView) findViewById(R.id.calendarView);
 
     }
 }
