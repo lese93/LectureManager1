@@ -66,6 +66,9 @@
 
     </LinearLayout>
 
+    <!-- 카카오톡 로그인 -->
+    <!-- 로그인 성공하면 Toast 로그인한 사람 닉네임-->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
