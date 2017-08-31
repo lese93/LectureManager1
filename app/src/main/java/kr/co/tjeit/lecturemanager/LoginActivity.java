@@ -22,6 +22,9 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 
+import kr.co.tjeit.lecturemanager.data.User;
+import kr.co.tjeit.lecturemanager.util.ContextUtil;
+
 public class LoginActivity extends BaseActivity {
 
     private Button signUpBtn;
@@ -87,7 +90,18 @@ public class LoginActivity extends BaseActivity {
                 }
                 else {
 //                    로그인 됨.
-                    Toast.makeText(mContext, currentProfile.getName() + "님 접속", Toast.LENGTH_SHORT).show();
+
+//                    Toast.makeText(mContext, currentProfile.getName() + "님 접속", Toast.LENGTH_SHORT).show();
+
+                    User tempUser = new User(currentProfile.getId(),
+                            currentProfile.getName(),
+                            currentProfile.getProfilePictureUri(500,500).toString());
+
+                    ContextUtil.login(mContext, tempUser);
+
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    startActivity(intent);
+
                 }
             }
         };
