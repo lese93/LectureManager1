@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity {
         myStudentsArrayList.add("손익상");
         myStudentsArrayList.add("이승헌");
         myStudentsArrayList.add("이요한");
+        myStudentsArrayList.add("최종환");
         myStudentsArrayList.add("한상열");
 
         bindViews();
@@ -51,6 +52,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        myProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, MyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
         studentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -89,6 +98,7 @@ public class MainActivity extends BaseActivity {
                 return false;
             }
         });
+
 
     }
 

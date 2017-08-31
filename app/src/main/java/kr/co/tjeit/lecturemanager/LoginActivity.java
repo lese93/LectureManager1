@@ -159,7 +159,15 @@ public class LoginActivity extends BaseActivity {
 
                 @Override
                 public void onSuccess(UserProfile result) {
-                    Toast.makeText(LoginActivity.this, result.getNickname()+"님 접속", Toast.LENGTH_SHORT).show();
+
+                    User tempUser = new User(result.getId()+"",
+                            result.getNickname(),
+                            result.getProfileImagePath());
+
+                    ContextUtil.login(mContext, tempUser);
+
+                    Intent intent = new Intent(mContext, MainActivity.class);
+                    startActivity(intent);
                 }
             });
         }
