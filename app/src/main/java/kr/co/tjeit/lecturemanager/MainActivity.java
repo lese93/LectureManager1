@@ -50,7 +50,7 @@ public class MainActivity extends BaseActivity {
 //                Toast.makeText(MainActivity.this, position+"번 줄", Toast.LENGTH_SHORT).show();
 
                 Intent myIntent = new Intent(MainActivity.this, ViewStudentInfoActivity.class);
-
+                myIntent.putExtra("사용자정보", GlobalData.allUsers.get(position));
                 startActivity(myIntent);
 
             }
