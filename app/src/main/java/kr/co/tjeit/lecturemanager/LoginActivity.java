@@ -31,6 +31,9 @@ public class LoginActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         myActivity = this;
+        bindViews();
+        setUpEvents();
+        setValues();
 
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
