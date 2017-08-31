@@ -2,20 +2,19 @@ package kr.co.tjeit.lecturemanager;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
 // 저만의 브런치 입니다. (조경진)
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     String[] students = {"고동윤", "권성민", "김현철", "박석영",
             "박수현", "박영주", "손익상", "이승헌", "이요한", "한상열"};
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
 
     private ListView studentListView;
     private ArrayAdapter<String> studentAdapter;
+    private android.widget.Button myProfileBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,12 +41,16 @@ public class MainActivity extends AppCompatActivity {
         myStudentsArrayList.add("이요한");
         myStudentsArrayList.add("한상열");
 
-        studentListView = (ListView) findViewById(R.id.studentListView);
+        bindViews();
+        setupEvents();
+        setValues();
 
-        studentAdapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1,
-                myStudentsArrayList);
-        studentListView.setAdapter(studentAdapter);
+
+
+    }
+
+    @Override
+    public void setupEvents() {
 
         studentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -86,6 +90,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void setValues() {
+        studentAdapter = new ArrayAdapter<String>(MainActivity.this,
+                android.R.layout.simple_list_item_1,
+                myStudentsArrayList);
+        studentListView.setAdapter(studentAdapter);
+
+    }
+
+    @Override
+    public void bindViews() {
+
+        this.myProfileBtn = (Button) findViewById(R.id.myProfileBtn);
+        studentListView = (ListView) findViewById(R.id.studentListView);
     }
 }
 
