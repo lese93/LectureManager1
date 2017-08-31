@@ -81,6 +81,14 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Session.getCurrentSession().handleActivityResult(requestCode,resultCode,data)){
+            return;
+        }
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
     private class SessionCallback implements ISessionCallback {
 
         @Override
