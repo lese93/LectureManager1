@@ -31,4 +31,10 @@
         android:text="이름표시"/>
 
 
+    <Button
+        android:id="@+id/linkBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="페이스북 페이지 방문"/>
+
 </LinearLayout>

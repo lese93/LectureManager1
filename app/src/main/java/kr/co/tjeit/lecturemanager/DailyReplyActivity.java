@@ -26,6 +26,7 @@ public class DailyReplyActivity extends BaseActivity {
     ReplyAdapter mAdapter;
     List<Reply> mReplyList = new ArrayList<>();
     private android.widget.Button checkBtn;
+    private Button studentListBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +40,15 @@ public class DailyReplyActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        studentListBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, StudentListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         checkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,5 +75,6 @@ public class DailyReplyActivity extends BaseActivity {
         this.replyListView = (ListView) findViewById(R.id.replyListView);
         this.checkBtn = (Button) findViewById(R.id.checkBtn);
         this.dateTxt = (TextView) findViewById(R.id.dateTxt);
+        this.studentListBtn = (Button) findViewById(R.id.studentListBtn);
     }
 }
