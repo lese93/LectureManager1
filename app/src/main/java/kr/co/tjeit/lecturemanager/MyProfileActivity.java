@@ -59,11 +59,13 @@ public class MyProfileActivity extends BaseActivity {
                             }
                         });
 
+//                        성별 표시 기능.
+
                     }
                 }
         );
         Bundle params = new Bundle();
-        params.putString("fields", "id,name,link,email");
+        params.putString("fields", "id,name,gender,link");
         request.setParameters(params);
         request.executeAsync();
 
