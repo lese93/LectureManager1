@@ -20,6 +20,13 @@
             android:text="날짜가 표시됩니다."
             android:textSize="17sp"
             android:layout_gravity="center"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right|center_vertical"
+            android:text="출석체크"/>
+
     </FrameLayout>
 
     <ListView
