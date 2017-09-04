@@ -1,20 +1,12 @@
 package kr.co.tjeit.lecturemanager;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.facebook.AccessToken;
-import com.facebook.GraphRequest;
-import com.facebook.GraphResponse;
-
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
@@ -23,8 +15,8 @@ public class MyProfileActivity extends BaseActivity {
 
     private de.hdodenhof.circleimageview.CircleImageView profileImg;
     private android.widget.TextView nameTxt;
-    private android.widget.Button linkBtn;
-    private TextView genderTxt;
+    private TextView userIdTxtTxt;
+    private Button editProfileBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +29,14 @@ public class MyProfileActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        editProfileBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, EditMyProfileActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -113,8 +113,8 @@ public class MyProfileActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
-        this.linkBtn = (Button) findViewById(R.id.linkBtn);
-        this.genderTxt = (TextView) findViewById(R.id.genderTxt);
+        this.editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
+        this.userIdTxtTxt = (TextView) findViewById(R.id.userIdTxtTxt);
         this.nameTxt = (TextView) findViewById(R.id.nameTxt);
         this.profileImg = (CircleImageView) findViewById(R.id.profileImg);
     }

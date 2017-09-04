@@ -31,19 +31,39 @@
         android:text="이름표시"/>
 
     <TextView
-        android:id="@+id/genderTxt"
+        android:id="@+id/userIdTxtTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
-        android:text="성별표시"/>
+        android:text="아이디표시"/>
 
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
 
+        <TextView
+            android:textSize="18sp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전화번호 표시"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="전화걸기"/>
+
+    </LinearLayout>
 
     <Button
-        android:id="@+id/linkBtn"
+        android:id="@+id/editProfileBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="페이스북 페이지 방문"/>
+        android:textSize="17sp"
+        android:text="프로필 수정"/>
+
 
 </LinearLayout>
