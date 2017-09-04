@@ -94,6 +94,18 @@ public class SignUpActivity extends BaseActivity {
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                현재 코드는 무조건 학생 목록으로 넘어감.
+
+//                1. 중복확인을 통과 해야함
+//                2. 입력칸 중에 빈 칸이 없어야.
+//                 => 위에서부터 하나하나 검사하다가, 빈칸을 발견하면
+//                    해당 칸이 비어있음을 경고창으로 알려주기.
+//                3. 중복확인을 통과한 이후에, 아이디를 수정했다면 다시 중복확인을 받아야하도록.
+//                4. 서버에 실제로 가입 요청
+//                5. 가입요청의 응답을 보고, 가입 승인이 났으면 로그인 처리
+//                 => 프로필 사진 경로 X : tempURL 이라고 프사 경로 지정.
+//                6. 로그인처리가 완료되면, 학생 목록 화면으로 이동.
+
                 Intent myIntent = new Intent(SignUpActivity.this, StudentListActivity.class);
                 startActivity(myIntent);
                 finish();
