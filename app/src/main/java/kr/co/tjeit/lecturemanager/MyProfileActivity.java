@@ -15,8 +15,11 @@ public class MyProfileActivity extends BaseActivity {
 
     private de.hdodenhof.circleimageview.CircleImageView profileImg;
     private android.widget.TextView nameTxt;
-    private TextView userIdTxtTxt;
     private Button editProfileBtn;
+    private TextView userIdTxt;
+    private TextView phoneTxt;
+
+//    아이디, 폰번 표시
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,6 +108,9 @@ public class MyProfileActivity extends BaseActivity {
 //        request.setParameters(params);
 //        request.executeAsync();
 
+        phoneTxt.setText(ContextUtil.getLoginUser(mContext).getPhoneNum());
+
+        userIdTxt.setText(ContextUtil.getLoginUser(mContext).getUserId());
 
         nameTxt.setText(ContextUtil.getLoginUser(mContext).getName());
 
@@ -114,7 +120,8 @@ public class MyProfileActivity extends BaseActivity {
     @Override
     public void bindViews() {
         this.editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
-        this.userIdTxtTxt = (TextView) findViewById(R.id.userIdTxtTxt);
+        this.phoneTxt = (TextView) findViewById(R.id.phoneTxt);
+        this.userIdTxt = (TextView) findViewById(R.id.userIdTxt);
         this.nameTxt = (TextView) findViewById(R.id.nameTxt);
         this.profileImg = (CircleImageView) findViewById(R.id.profileImg);
     }

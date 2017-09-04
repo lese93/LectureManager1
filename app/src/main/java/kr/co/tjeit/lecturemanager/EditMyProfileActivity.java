@@ -14,6 +14,7 @@ import kr.co.tjeit.lecturemanager.util.ServerUtil;
 public class EditMyProfileActivity extends BaseActivity {
 
     //    내 사용자 정보 저장
+//     폰번 표시.
     User myInfo;
     private android.widget.EditText nameEdt;
     private android.widget.EditText pwEdt;
@@ -53,6 +54,7 @@ public class EditMyProfileActivity extends BaseActivity {
     @Override
     public void setValues() {
         nameEdt.setText(myInfo.getName());
+        phoneEdt.setText(myInfo.getPhoneNum());
     }
 
     @Override
