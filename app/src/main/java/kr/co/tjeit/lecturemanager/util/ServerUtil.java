@@ -122,9 +122,6 @@ public class ServerUtil {
     // 자체 로그인 기능
     public static void sign_in(final Context context, final String id,
                                final String pw,
-                               final String name,
-                               final String profilePhoto,
-                               final String phoneNum,
                                final JsonResponseHandler handler) {
         String url = BASE_URL+"mobile/sign_in";
         //		String registrationId = ContextUtil.getRegistrationId(context);
@@ -132,9 +129,6 @@ public class ServerUtil {
         Map<String, String> data = new HashMap<String, String>();
         data.put("user_id", id);
         data.put("password", pw);
-        data.put("name", name);
-        data.put("profile_photo", profilePhoto);
-        data.put("phone_num", phoneNum);
 
         AsyncHttpRequest.post(context, url,  data, true, new AsyncHttpRequest.HttpResponseHandler() {
 

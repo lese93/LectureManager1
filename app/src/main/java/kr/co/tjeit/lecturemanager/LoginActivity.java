@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
 
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -21,8 +23,12 @@ import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import kr.co.tjeit.lecturemanager.data.User;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
+import kr.co.tjeit.lecturemanager.util.ServerUtil;
 
 public class LoginActivity extends BaseActivity {
 
@@ -35,6 +41,8 @@ public class LoginActivity extends BaseActivity {
     ProfileTracker pt;
     private com.facebook.login.widget.LoginButton fbLoginBtn;
     private com.kakao.usermgmt.LoginButton comkakaologin;
+    private android.widget.EditText idEdt;
+    private android.widget.EditText pwEdt;
 
 //    아이디 / 비번 입력 후 로그인 버튼 누르면
 //    1. 서버에 실제로 로그인 요청
@@ -65,9 +73,36 @@ public class LoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                finish();
+
+                ServerUtil.sign_in(mContext, idEdt.getText().toString(),
+                        pwEdt.getText().toString(), new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+
+                                try {
+                                    if (json.getBoolean("result")) {
+//                                        로그인에 성공
+
+                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+//                                        로그인에 성공하면
+//                                        ~~님이 로그인했습니다. Toast 띄우기.
+
+                                    }
+                                    else {
+//                                        로그인에 실패
+
+                                        Toast.makeText(mContext, "로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                    }
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+
             }
         });
     }
@@ -143,6 +178,8 @@ public class LoginActivity extends BaseActivity {
         this.comkakaologin = (LoginButton) findViewById(R.id.com_kakao_login);
         this.fbLoginBtn = (com.facebook.login.widget.LoginButton) findViewById(R.id.fbLoginBtn);
         this.loginBtn = (Button) findViewById(R.id.loginBtn);
+        this.pwEdt = (EditText) findViewById(R.id.pwEdt);
+        this.idEdt = (EditText) findViewById(R.id.idEdt);
     }
 
     private class KakaoSessionCallback implements ISessionCallback {
