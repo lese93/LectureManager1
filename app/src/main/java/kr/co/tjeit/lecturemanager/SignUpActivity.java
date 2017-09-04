@@ -15,6 +15,8 @@ import kr.co.tjeit.lecturemanager.util.ServerUtil;
 
 public class SignUpActivity extends BaseActivity {
 
+    boolean isIdDupl = true;
+
     private Button signUpBtn;
     private android.widget.EditText idEdt;
     private Button checkDuplBtn;
@@ -48,7 +50,6 @@ public class SignUpActivity extends BaseActivity {
 //                        JSON 파싱해서, isIdDupl을 상황에 맞는 값으로 세팅.
 
 
-                        boolean isIdDupl = false;
                         try {
                             isIdDupl = json.getBoolean("result");
 
@@ -97,6 +98,21 @@ public class SignUpActivity extends BaseActivity {
 //                현재 코드는 무조건 학생 목록으로 넘어감.
 
 //                1. 중복확인을 통과 해야함
+
+//                isIdDupl을 이 곳에서도 받아와야 한다.
+//                 => isIdDupl을 멤버변수화 한다.
+
+                if (isIdDupl) {
+//                    중복된 아이디라면 아이디가 중복되었다고 토스트
+                    Toast.makeText(mContext, "중복된 아이디입니다.", Toast.LENGTH_SHORT).show();
+
+//                    onClick메쏘드를 강제종료.
+//                    아이디가 애초에 중복이면, 그 뒤는 볼것도 없이 가입실패이므로
+//                    더이상 자원 낭비 하지 않도록 return; 날려줌.
+                    return;
+                }
+
+
 //                2. 입력칸 중에 빈 칸이 없어야.
 //                 => 위에서부터 하나하나 검사하다가, 빈칸을 발견하면
 //                    해당 칸이 비어있음을 경고창으로 알려주기.
