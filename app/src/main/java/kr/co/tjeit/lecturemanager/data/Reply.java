@@ -1,5 +1,6 @@
 package kr.co.tjeit.lecturemanager.data;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.Serializable;
@@ -30,6 +31,19 @@ public class Reply implements Serializable {
 //        댓글 작성자도 같이 파싱.
 
 //         => 50분에
+        try {
+            tempReply.setId(json.getInt("id"));
+            tempReply.setContent(json.getString("content"));
+            tempReply.setUser_id(json.getInt("user_id"));
+            tempReply.setCreatedAt(Calendar.getInstance());
+
+//            User클래스에서 만들어둔 static 메쏘드를 활용해서
+//            다시 파싱을 구현하는 일 없이, 간단하게 코딩을 마무리.
+//            => getUserFromJsonObject기능 활용.
+            tempReply.setWriter(User.getUserFromJsonObject(json.getJSONObject("writer")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
 //        댓글 목록 화면에서 모든 댓글을 불러다가 출력.
 //         => 마지막 설명
