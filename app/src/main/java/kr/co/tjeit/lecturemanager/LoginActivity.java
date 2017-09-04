@@ -94,7 +94,7 @@ public class LoginActivity extends BaseActivity {
 
                     User tempUser = new User(currentProfile.getId(),
                             currentProfile.getName(),
-                            currentProfile.getProfilePictureUri(500,500).toString());
+                            currentProfile.getProfilePictureUri(500,500).toString(), "");
 
                     ContextUtil.login(mContext, tempUser);
 
@@ -161,7 +161,8 @@ public class LoginActivity extends BaseActivity {
 
                     User tempUser = new User(result.getId()+"",
                             result.getNickname(),
-                            result.getProfileImagePath());
+                            result.getProfileImagePath(),
+                            "임시폰번");
 
                     ContextUtil.login(mContext, tempUser);
 
