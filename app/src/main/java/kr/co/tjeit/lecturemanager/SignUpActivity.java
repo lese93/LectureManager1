@@ -3,6 +3,9 @@ package kr.co.tjeit.lecturemanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -36,6 +39,25 @@ public class SignUpActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        idEdt.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                        타이핑이 되는 매 순간 마다, 중복 검사를 통과 못한값으로 변경
+                isIdDupl = true;
+                Log.d("아이디값변경", s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
 
         checkDuplBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -146,6 +168,9 @@ public class SignUpActivity extends BaseActivity {
                 }
 
 //                3. 중복확인을 통과한 이후에, 아이디를 수정했다면 다시 중복확인을 받아야하도록.
+
+//                setupEvents 내부에 실행
+
 //                4. 서버에 실제로 가입 요청
 //                5. 가입요청의 응답을 보고, 가입 승인이 났으면 로그인 처리
 //                 => 프로필 사진 경로 X : tempURL 이라고 프사 경로 지정.
