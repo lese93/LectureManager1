@@ -91,20 +91,17 @@ public class LoginActivity extends BaseActivity {
 //                                        ~~님이 로그인했습니다. Toast 띄우기.
 
 //                                        사용자 이름 추출
-                                        String loginUserName = json.getJSONObject("user").getString("name");
-                                        String loginUserId = json.getJSONObject("user").getString("user_id");
-                                        String loginUserProfileURL = json.getJSONObject("user").getString("profile_photo");
-                                        String loginUserPhoneNum = json.getJSONObject("user").getString("phone_num");
+
+                                        User loginUser = User.getUserFromJsonObject(json.getJSONObject("user"));
 
 
 //                                        실제로 로그인 했다는 사실을 기록.
 //                                        로그인 처리가 되고나면, 실제 사용자 정보가
 //                                        프로필 조회화면에서 나타나도록.
 
+                                        ContextUtil.login(mContext, loginUser);
 
-                                        ContextUtil.login(mContext, new User(loginUserId, loginUserName, loginUserProfileURL, loginUserPhoneNum));
-
-                                        Toast.makeText(mContext, loginUserName+"님이 로그인 했습니다.", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(mContext, loginUser.getName()+"님이 로그인 했습니다.", Toast.LENGTH_SHORT).show();
 
 
                                     }
@@ -149,11 +146,11 @@ public class LoginActivity extends BaseActivity {
 
 //                    Toast.makeText(mContext, currentProfile.getName() + "님 접속", Toast.LENGTH_SHORT).show();
 
-                    User tempUser = new User(currentProfile.getId(),
-                            currentProfile.getName(),
-                            currentProfile.getProfilePictureUri(500,500).toString(), "");
+//                    User tempUser = new User(currentProfile.getId(),
+//                            currentProfile.getName(),
+//                            currentProfile.getProfilePictureUri(500,500).toString(), "");
 
-                    ContextUtil.login(mContext, tempUser);
+//                    ContextUtil.login(mContext, tempUser);
 
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
@@ -218,12 +215,12 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void onSuccess(UserProfile result) {
 
-                    User tempUser = new User(result.getId()+"",
-                            result.getNickname(),
-                            result.getProfileImagePath(),
-                            "임시폰번");
-
-                    ContextUtil.login(mContext, tempUser);
+//                    User tempUser = new User(result.getId()+"",
+//                            result.getNickname(),
+//                            result.getProfileImagePath(),
+//                            "임시폰번");
+//
+//                    ContextUtil.login(mContext, tempUser);
 
                     Intent intent = new Intent(mContext, MainActivity.class);
                     startActivity(intent);
