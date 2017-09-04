@@ -1,5 +1,7 @@
 package kr.co.tjeit.lecturemanager.data;
 
+import org.json.JSONObject;
+
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -20,6 +22,20 @@ public class Reply implements Serializable {
 //    댓글데이터의 관계설정
 
     private User writer;
+
+    public static Reply getReplyFromJson(JSONObject json) {
+        Reply tempReply = new Reply();
+
+//        데이터 파싱해서 세팅. (등록 시간 Skip) : 내용, 작성자
+//        댓글 작성자도 같이 파싱.
+
+//         => 50분에
+
+//        댓글 목록 화면에서 모든 댓글을 불러다가 출력.
+//         => 마지막 설명
+
+        return tempReply;
+    }
 
     public Reply() {
     }
