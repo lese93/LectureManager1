@@ -90,6 +90,18 @@ public class LoginActivity extends BaseActivity {
 //                                        로그인에 성공하면
 //                                        ~~님이 로그인했습니다. Toast 띄우기.
 
+//                                        사용자 이름 추출
+                                        String loginUserName = json.getJSONObject("user").getString("name");
+
+
+//                                        실제로 로그인 했다는 사실을 기록.
+//                                        로그인 처리가 되고나면, 실제 사용자 정보가
+//                                        프로필 조회화면에서 나타나도록.
+//                                        ContextUtil.login(mContext, );
+
+                                        Toast.makeText(mContext, loginUserName+"님이 로그인 했습니다.", Toast.LENGTH_SHORT).show();
+
+
                                     }
                                     else {
 //                                        로그인에 실패
