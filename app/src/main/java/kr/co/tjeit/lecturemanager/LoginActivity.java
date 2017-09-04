@@ -36,6 +36,11 @@ public class LoginActivity extends BaseActivity {
     private com.facebook.login.widget.LoginButton fbLoginBtn;
     private com.kakao.usermgmt.LoginButton comkakaologin;
 
+//    아이디 / 비번 입력 후 로그인 버튼 누르면
+//    1. 서버에 실제로 로그인 요청
+//    2. 로그인에 성공하면 학생 목록 띄워주기
+//    3. 로그인에 실패하면 토스트로 "로그인에 실패했습니다. 아이디와 비번을 확인해주세요."
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

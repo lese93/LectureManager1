@@ -14,6 +14,7 @@ import android.widget.Toast;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import kr.co.tjeit.lecturemanager.util.ContextUtil;
 import kr.co.tjeit.lecturemanager.util.ServerUtil;
 
 public class SignUpActivity extends BaseActivity {
@@ -172,14 +173,40 @@ public class SignUpActivity extends BaseActivity {
 //                setupEvents 내부에 실행
 
 //                4. 서버에 실제로 가입 요청
+
+                ServerUtil.sign_up(mContext, idEdt.getText().toString(),
+                        pwEdt.getText().toString(),
+                        nameEdt.getText().toString(),
+                        "tempURL",
+                        phoneEdt.getText().toString(),
+                        new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+                                try {
+                                    if (json.getBoolean("result")) {
+                                        Toast.makeText(mContext, "회원가입이 완료되었습니다.", Toast.LENGTH_SHORT).show();
+
+
+                                        Intent myIntent = new Intent(SignUpActivity.this, StudentListActivity.class);
+                                        startActivity(myIntent);
+                                        finish();
+                                        LoginActivity.myActivity.finish();
+//                                        ContextUtil.login();
+                                    }
+                                    else {
+                                        Toast.makeText(mContext, "회원가입에 실패했습니다. 아이디 변경후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
+
 //                5. 가입요청의 응답을 보고, 가입 승인이 났으면 로그인 처리
 //                 => 프로필 사진 경로 X : tempURL 이라고 프사 경로 지정.
 //                6. 로그인처리가 완료되면, 학생 목록 화면으로 이동.
 
-                Intent myIntent = new Intent(SignUpActivity.this, StudentListActivity.class);
-                startActivity(myIntent);
-                finish();
-                LoginActivity.myActivity.finish();
             }
         });
     }
