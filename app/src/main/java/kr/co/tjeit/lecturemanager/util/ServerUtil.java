@@ -299,16 +299,14 @@ public class ServerUtil {
     }
 
 
-
-    // 회원 가입
-    public static void facebook_login(final Context context, final String name, final String uid, final String email, final JsonResponseHandler handler) {
-        String url = BASE_URL+"mobile/facebook_login";
+    // 모든 회원 목록 받아오기
+    public static void get_all_replies(final Context context, final JsonResponseHandler handler) {
+        String url = BASE_URL+"mobile/get_all_replies";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
-        data.put("uid", uid);
-        data.put("name", name);
-        data.put("email", email);
+//        data.put("user_id", id);
+//        data.put("password", pw);
 
         AsyncHttpRequest.post(context, url,  data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
@@ -341,5 +339,8 @@ public class ServerUtil {
 
         });
     }
+
+
+
 
 }

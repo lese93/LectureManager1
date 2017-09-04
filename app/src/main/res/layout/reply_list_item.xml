@@ -20,6 +20,7 @@
             app:civ_border_width="2dp" />
 
         <TextView
+            android:id="@+id/writerNameTxt"
             android:layout_marginLeft="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -38,6 +39,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/contentTxt"
         android:padding="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

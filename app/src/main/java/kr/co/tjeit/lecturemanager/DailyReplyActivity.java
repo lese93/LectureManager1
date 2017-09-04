@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
@@ -58,6 +60,10 @@ public class DailyReplyActivity extends BaseActivity {
                             @Override
                             public void onResponse(JSONObject json) {
 //                                댓글 등록후의 동작 구현
+
+                                replyEdt.setText("");
+                                getRepliesFromServer();
+
                             }
                         });
             }
@@ -89,6 +95,38 @@ public class DailyReplyActivity extends BaseActivity {
 
         mAdapter = new ReplyAdapter(mContext, mReplyList);
         replyListView.setAdapter(mAdapter);
+
+        getRepliesFromServer();
+
+    }
+
+    void getRepliesFromServer() {
+
+        ServerUtil.get_all_replies(mContext, new ServerUtil.JsonResponseHandler() {
+            @Override
+            public void onResponse(JSONObject json) {
+//                서버에서 모든 댓글 목록을 받아온 후에 진행할 일.
+
+                try {
+                    JSONArray replies = json.getJSONArray("replies");
+
+                    mReplyList.clear();
+
+                    for (int i=0 ; i < replies.length() ; i++) {
+                        JSONObject replyJson = replies.getJSONObject(i);
+                        Reply tempReply = Reply.getReplyFromJson(replyJson);
+                        mReplyList.add(tempReply);
+                    }
+
+                    mAdapter.notifyDataSetChanged();
+                    replyListView.smoothScrollToPosition(mReplyList.size()-1);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
 
     }
 
