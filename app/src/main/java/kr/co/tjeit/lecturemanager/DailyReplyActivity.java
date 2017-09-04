@@ -4,10 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -15,6 +18,8 @@ import java.util.List;
 
 import kr.co.tjeit.lecturemanager.adapter.ReplyAdapter;
 import kr.co.tjeit.lecturemanager.data.Reply;
+import kr.co.tjeit.lecturemanager.util.ContextUtil;
+import kr.co.tjeit.lecturemanager.util.ServerUtil;
 
 public class DailyReplyActivity extends BaseActivity {
 
@@ -27,6 +32,8 @@ public class DailyReplyActivity extends BaseActivity {
     List<Reply> mReplyList = new ArrayList<>();
     private android.widget.Button checkBtn;
     private Button studentListBtn;
+    private Button registerBtn;
+    private android.widget.EditText replyEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +47,21 @@ public class DailyReplyActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        registerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ServerUtil.register_reply(mContext,
+                        ContextUtil.getLoginUser(mContext).getId(),
+                        replyEdt.getText().toString(),
+                        new ServerUtil.JsonResponseHandler() {
+                            @Override
+                            public void onResponse(JSONObject json) {
+//                                댓글 등록후의 동작 구현
+                            }
+                        });
+            }
+        });
 
         studentListBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +94,8 @@ public class DailyReplyActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
+        this.registerBtn = (Button) findViewById(R.id.registerBtn);
+        this.replyEdt = (EditText) findViewById(R.id.replyEdt);
         this.replyListView = (ListView) findViewById(R.id.replyListView);
         this.checkBtn = (Button) findViewById(R.id.checkBtn);
         this.dateTxt = (TextView) findViewById(R.id.dateTxt);

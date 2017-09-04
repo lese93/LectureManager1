@@ -44,8 +44,4 @@ public class ReplyAdapter extends ArrayAdapter<Reply> {
         return row;
     }
 
-    @Override
-    public int getCount() {
-        return 20;
-    }
 }
