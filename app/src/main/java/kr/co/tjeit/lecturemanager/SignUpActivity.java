@@ -20,6 +20,9 @@ public class SignUpActivity extends BaseActivity {
     private Button signUpBtn;
     private android.widget.EditText idEdt;
     private Button checkDuplBtn;
+    private EditText nameEdt;
+    private EditText pwEdt;
+    private EditText phoneEdt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +119,32 @@ public class SignUpActivity extends BaseActivity {
 //                2. 입력칸 중에 빈 칸이 없어야.
 //                 => 위에서부터 하나하나 검사하다가, 빈칸을 발견하면
 //                    해당 칸이 비어있음을 경고창으로 알려주기.
+                AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                builder.setTitle("가입 실패");
+                builder.setPositiveButton("확인", null);
+
+                if (idEdt.getText().toString().equals("")) {
+
+                    builder.setMessage("아이디가 입력되지 않았습니다.");
+                    builder.show();
+                    return;
+                }
+                else if (nameEdt.getText().toString().equals("")) {
+                    builder.setMessage("이름이 입력되지 않았습니다.");
+                    builder.show();
+                    return;
+                }
+                else if (pwEdt.getText().toString().equals("")) {
+                    builder.setMessage("비밀번호가 입력되지 않았습니다.");
+                    builder.show();
+                    return;
+                }
+                else if (phoneEdt.getText().toString().equals("")) {
+                    builder.setMessage("핸드폰 번호가 입력되지 않았습니다.");
+                    builder.show();
+                    return;
+                }
+
 //                3. 중복확인을 통과한 이후에, 아이디를 수정했다면 다시 중복확인을 받아야하도록.
 //                4. 서버에 실제로 가입 요청
 //                5. 가입요청의 응답을 보고, 가입 승인이 났으면 로그인 처리
@@ -138,6 +167,9 @@ public class SignUpActivity extends BaseActivity {
     @Override
     public void bindViews() {
         this.signUpBtn = (Button) findViewById(R.id.signUpBtn);
+        this.phoneEdt = (EditText) findViewById(R.id.phoneEdt);
+        this.pwEdt = (EditText) findViewById(R.id.pwEdt);
+        this.nameEdt = (EditText) findViewById(R.id.nameEdt);
         this.checkDuplBtn = (Button) findViewById(R.id.checkDuplBtn);
         this.idEdt = (EditText) findViewById(R.id.idEdt);
     }
