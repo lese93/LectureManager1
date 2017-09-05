@@ -2,6 +2,8 @@ package kr.co.tjeit.lecturemanager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -62,6 +64,7 @@ public class LoginActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+
         signUpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,52 +76,82 @@ public class LoginActivity extends BaseActivity {
         loginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                ServerUtil.sign_in(mContext, idEdt.getText().toString(),
-                        pwEdt.getText().toString(), new ServerUtil.JsonResponseHandler() {
+                ServerUtil.sign_in(mContext,
+                        idEdt.getText().toString(),
+                        pwEdt.getText().toString(),
+                        new ServerUtil.JsonResponseHandler() {
                             @Override
                             public void onResponse(JSONObject json) {
-
+                                Log.d("로그인JSON", json.toString());
                                 try {
                                     if (json.getBoolean("result")) {
-//                                        로그인에 성공
-
-                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                        startActivity(intent);
-                                        finish();
-
-//                                        로그인에 성공하면
-//                                        ~~님이 로그인했습니다. Toast 띄우기.
-
-//                                        사용자 이름 추출
-
-                                        User loginUser = User.getUserFromJsonObject(json.getJSONObject("user"));
-
-
-//                                        실제로 로그인 했다는 사실을 기록.
-//                                        로그인 처리가 되고나면, 실제 사용자 정보가
-//                                        프로필 조회화면에서 나타나도록.
-
-                                        ContextUtil.login(mContext, loginUser);
-
-                                        Toast.makeText(mContext, loginUser.getName()+"님이 로그인 했습니다.", Toast.LENGTH_SHORT).show();
-
 
                                     }
                                     else {
-//                                        로그인에 실패
-
-                                        Toast.makeText(mContext, "로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+                                        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                                        builder.setTitle("로그인 실패");
+                                        builder.setMessage("아이디와 비밀번호를 확인해 주세요.");
+                                        builder.setPositiveButton("확인", null);
+                                        builder.show();
                                     }
                                 } catch (JSONException e) {
                                     e.printStackTrace();
                                 }
-
                             }
                         });
-
             }
         });
+
+
+//        loginBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                ServerUtil.sign_in(mContext, idEdt.getText().toString(),
+//                        pwEdt.getText().toString(), new ServerUtil.JsonResponseHandler() {
+//                            @Override
+//                            public void onResponse(JSONObject json) {
+//
+//                                try {
+//                                    if (json.getBoolean("result")) {
+////                                        로그인에 성공
+//
+//                                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+//                                        startActivity(intent);
+//                                        finish();
+//
+////                                        로그인에 성공하면
+////                                        ~~님이 로그인했습니다. Toast 띄우기.
+//
+////                                        사용자 이름 추출
+//
+//                                        User loginUser = User.getUserFromJsonObject(json.getJSONObject("user"));
+//
+//
+////                                        실제로 로그인 했다는 사실을 기록.
+////                                        로그인 처리가 되고나면, 실제 사용자 정보가
+////                                        프로필 조회화면에서 나타나도록.
+//
+//                                        ContextUtil.login(mContext, loginUser);
+//
+//                                        Toast.makeText(mContext, loginUser.getName()+"님이 로그인 했습니다.", Toast.LENGTH_SHORT).show();
+//
+//
+//                                    }
+//                                    else {
+////                                        로그인에 실패
+//
+//                                        Toast.makeText(mContext, "로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show();
+//                                    }
+//                                } catch (JSONException e) {
+//                                    e.printStackTrace();
+//                                }
+//
+//                            }
+//                        });
+//
+//            }
+//        });
     }
 
     @Override

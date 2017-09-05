@@ -118,11 +118,61 @@ public class ServerUtil {
         });
     }
 
+////    로그인.
+////    BASE_URL : 적혀있음.
+////    상세주소 : mobile/sign_in
+////    통신방식 : POST
+////    헤더 : 추가 요구 X
+////    파라미터. id : user_id,  pw : password
+//
+//    public static void sign_in(Context context, String id, String pw, final JsonResponseHandler handler) {
+////        1. 주소 작성 후 String 변수에 저장
+//        String url = BASE_URL+"mobile/sign_in";
+////        http://13.124.238.13/mobile/sign_in 접속 주소 저장
+//
+////        데이터를 저장할 Map 형식 변수 생성
+////        생성된 변수에 K/V 하나씩 추가.
+////        보내줘야할 실제 데이터는 메쏘드의 재료로 받자.
+//        Map<String, String> params = new HashMap<>();
+//        params.put("user_id", id);
+//        params.put("password", pw);
+//
+//        AsyncHttpRequest.post(context, url, params, true, new AsyncHttpRequest.HttpResponseHandler() {
+//            @Override
+//            public boolean onPrepare() {
+//                return true;
+//            }
+//
+//            @Override
+//            public void onResponse(String response) {
+//                if (handler != null) {
+//                    try {
+//                        JSONObject json = new JSONObject(response);
+//                        handler.onResponse(json);
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onFinish() {
+//
+//            }
+//
+//            @Override
+//            public void onCancelled() {
+//
+//            }
+//        });
+//
+//
+//    }
 
-    // 자체 로그인 기능
-    public static void sign_in(final Context context, final String id,
-                               final String pw,
-                               final JsonResponseHandler handler) {
+
+
+    // 로그인 기능
+    public static void sign_in(final Context context, String id, String pw, final JsonResponseHandler handler) {
         String url = BASE_URL+"mobile/sign_in";
         //		String registrationId = ContextUtil.getRegistrationId(context);
 
@@ -161,6 +211,9 @@ public class ServerUtil {
 
         });
     }
+
+
+
 
 
     // 모든 회원 목록 받아오기
