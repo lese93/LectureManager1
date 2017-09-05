@@ -28,6 +28,8 @@ import com.kakao.util.exception.KakaoException;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import kr.co.tjeit.lecturemanager.data.User;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
 import kr.co.tjeit.lecturemanager.util.ServerUtil;
@@ -85,6 +87,26 @@ public class LoginActivity extends BaseActivity {
                                 Log.d("로그인JSON", json.toString());
                                 try {
                                     if (json.getBoolean("result")) {
+//                                        User temp = User.getUserFromJsonObject(json.getJSONObject("user"));
+
+                                        User temp = new User();
+                                        temp.setId(json.getJSONObject("user").getInt("id"));
+                                        temp.setUserId(json.getJSONObject("user").getString("user_id"));
+                                        temp.setName(json.getJSONObject("user").getString("name"));
+                                        temp.setProfileURL(json.getJSONObject("user").getString("profile_photo"));
+                                        temp.setPhoneNum(json.getJSONObject("user").getString("phone_num"));
+
+                                        String welcomMessageStr = String.format(Locale.KOREA, "%s님이 로그인 했습니다.", temp.getName());
+                                        Toast.makeText(mContext, welcomMessageStr, Toast.LENGTH_SHORT).show();
+
+                                        ContextUtil.login(mContext, temp);
+
+//                                        화면을 MainActivity로 이동, 현재 화면 종료
+
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
 
                                     }
                                     else {
@@ -175,18 +197,32 @@ public class LoginActivity extends BaseActivity {
 //                    로그아웃 됨.
                 }
                 else {
-//                    로그인 됨.
+//                    로그인 됨. => 서버에 페북로그인 전용 처리 요청
 
-//                    Toast.makeText(mContext, currentProfile.getName() + "님 접속", Toast.LENGTH_SHORT).show();
+                    ServerUtil.facebook_login(mContext,
+                            currentProfile.getId(),
+                            currentProfile.getName(),
+                            currentProfile.getProfilePictureUri(500, 500).toString(),
+                            new ServerUtil.JsonResponseHandler() {
+                                @Override
+                                public void onResponse(JSONObject json) {
 
-//                    User tempUser = new User(currentProfile.getId(),
-//                            currentProfile.getName(),
-//                            currentProfile.getProfilePictureUri(500,500).toString(), "");
+                                    try {
+                                        User tempUser = User.getUserFromJsonObject(json.getJSONObject("userInfo"));
 
-//                    ContextUtil.login(mContext, tempUser);
+                                        ContextUtil.login(mContext, tempUser);
 
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+
+                                }
+                            });
 
                 }
             }

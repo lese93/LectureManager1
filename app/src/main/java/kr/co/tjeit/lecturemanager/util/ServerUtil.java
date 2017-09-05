@@ -395,5 +395,46 @@ public class ServerUtil {
 
 
 
+    // 페이스북 로그인 기능
+    public static void facebook_login(final Context context, String uid, String name, String profile, final JsonResponseHandler handler) {
+        String url = BASE_URL+"mobile/facebook_login";
+        //		String registrationId = ContextUtil.getRegistrationId(context);
+
+        Map<String, String> data = new HashMap<String, String>();
+        data.put("uid", uid);
+        data.put("name", name);
+        data.put("profile_url", profile);
+
+        AsyncHttpRequest.post(context, url,  data, true, new AsyncHttpRequest.HttpResponseHandler() {
+
+            @Override
+            public boolean onPrepare() {
+                return true;
+            }
+
+            @Override
+            public void onResponse(String response) {
+                System.out.println(response);
+                try {
+                    JSONObject json = new JSONObject(response);
+
+                    if (handler != null)
+                        handler.onResponse(json);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFinish() {
+
+            }
+
+            @Override
+            public void onCancelled() {
+
+            }
+
+        });
+    }
 
 }
