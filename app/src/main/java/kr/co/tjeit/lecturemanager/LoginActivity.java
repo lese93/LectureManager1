@@ -250,6 +250,9 @@ public class LoginActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
         super.onActivityResult(requestCode, resultCode, data);
         cm.onActivityResult(requestCode, resultCode, data);
     }
@@ -284,15 +287,31 @@ public class LoginActivity extends BaseActivity {
                 @Override
                 public void onSuccess(UserProfile result) {
 
-//                    User tempUser = new User(result.getId()+"",
-//                            result.getNickname(),
-//                            result.getProfileImagePath(),
-//                            "임시폰번");
-//
-//                    ContextUtil.login(mContext, tempUser);
+                    ServerUtil.facebook_login(mContext,
+                            result.getId() + "",
+                            result.getNickname(),
+                            result.getProfileImagePath(),
+                            new ServerUtil.JsonResponseHandler() {
+                                @Override
+                                public void onResponse(JSONObject json) {
 
-                    Intent intent = new Intent(mContext, MainActivity.class);
-                    startActivity(intent);
+                                    try {
+                                        User tempUser = User.getUserFromJsonObject(json.getJSONObject("userInfo"));
+
+                                        ContextUtil.login(mContext, tempUser);
+
+                                        Intent intent = new Intent(mContext, MainActivity.class);
+                                        startActivity(intent);
+                                        finish();
+
+                                    } catch (JSONException e) {
+                                        e.printStackTrace();
+                                    }
+
+                                    Log.d("JSON", json.toString());
+                                }
+                            });
+
                 }
             });
         }

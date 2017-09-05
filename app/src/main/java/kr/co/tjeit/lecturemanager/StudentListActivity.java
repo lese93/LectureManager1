@@ -90,12 +90,15 @@ public class StudentListActivity extends BaseActivity {
 
     @Override
     public void setValues() {
+
         mAdapter = new StudentAdapter(mContext, GlobalData.allUsers);
         studentListView.setAdapter(mAdapter);
 
         ServerUtil.get_all_users(mContext, new ServerUtil.JsonResponseHandler() {
             @Override
             public void onResponse(JSONObject json) {
+
+                GlobalData.allUsers.clear();
 
                 try {
                     JSONArray users = json.getJSONArray("users");
