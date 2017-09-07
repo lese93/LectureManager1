@@ -1,17 +1,25 @@
 package kr.co.tjeit.lecturemanager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+
+import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
 
 public class MyProfileActivity extends BaseActivity {
+
+    final int REQ_FOR_GALLERY = 1;
 
     private de.hdodenhof.circleimageview.CircleImageView profileImg;
     private android.widget.TextView nameTxt;
@@ -33,6 +41,16 @@ public class MyProfileActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        profileImg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(intent, REQ_FOR_GALLERY);
+            }
+        });
+
         editProfileBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,6 +58,45 @@ public class MyProfileActivity extends BaseActivity {
                 startActivity(intent);
             }
         });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQ_FOR_GALLERY) {
+            if (resultCode == RESULT_OK) {
+//                서버에 프로필 사진 전송, 후처리.
+//                사진 전송 => Bitmap 따서 서버에 보낸다.
+
+//                1. Bitmap 얻어오기
+                Uri uri = data.getData();
+//                갤러리를 통해 받아온것? 선택된 사진이 어디에 있는지 위치 정보.
+
+//                경로를 찾아가서 해당 사진 파일을 Bitmap으로 받아와야함.
+//                MediaStore 클래스가 사진 파일 => 비트맵으로 변환해서 가져옴.
+
+//                try : 한번 시도해봐. try 내부는 언제 에러가 터질지 모르는 부분. (예외 발생 가능 지점)
+                try {
+//                uri 통해서 사진파일로 찾아감.
+//                사진파일 있으면, 비트맵으로 변환. (변환을 해주는 객체 : getContentResolver())
+//                그냥 이 문장만 쓰면 에러가 남. 왜? 예외처리 필요.
+                    Bitmap myBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+                    profileImg.setImageBitmap(myBitmap);
+
+                } catch (IOException e) {
+//                    예외가 실제로 발생하면 대처하는 부분 : catch
+//                    앱이 죽지 않고 실행상태를 유지하도록 대처하는 부분.
+
+                    Toast.makeText(mContext, "사진을 불러오는 중에 에러가 발생했습니다.", Toast.LENGTH_SHORT).show();
+
+//                    어떤 예외가 발생했는지 로그로 기록.
+                    e.printStackTrace();
+                }
+
+            }
+        }
 
     }
 
@@ -114,7 +171,7 @@ public class MyProfileActivity extends BaseActivity {
 
         nameTxt.setText(ContextUtil.getLoginUser(mContext).getName());
 
-        Glide.with(mContext).load(ContextUtil.getLoginUser(mContext).getProfileURL()).into(profileImg);
+//        Glide.with(mContext).load(ContextUtil.getLoginUser(mContext).getProfileURL()).into(profileImg);
     }
 
     @Override

@@ -66,22 +66,6 @@
 
         </LinearLayout>
     </LinearLayout>
-    <com.facebook.login.widget.LoginButton
-        android:id="@+id/fbLoginBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="10dp" />
-
-    <com.kakao.usermgmt.LoginButton
-        android:layout_marginTop="15dp"
-        android:id="@+id/com_kakao_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"/>
-
 
     <!-- 카카오톡 로그인 -->
     <!-- 로그인 성공하면 Toast 로그인한 사람 닉네임-->
