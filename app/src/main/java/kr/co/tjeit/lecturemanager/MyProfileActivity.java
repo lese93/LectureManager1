@@ -12,10 +12,13 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
+import kr.co.tjeit.lecturemanager.util.ServerUtil;
 
 public class MyProfileActivity extends BaseActivity {
 
@@ -82,8 +85,19 @@ public class MyProfileActivity extends BaseActivity {
 //                uri 통해서 사진파일로 찾아감.
 //                사진파일 있으면, 비트맵으로 변환. (변환을 해주는 객체 : getContentResolver())
 //                그냥 이 문장만 쓰면 에러가 남. 왜? 예외처리 필요.
-                    Bitmap myBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                    profileImg.setImageBitmap(myBitmap);
+                    final Bitmap myBitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
+
+                    ServerUtil.updateProfilePhoto(mContext, ContextUtil.getLoginUser(mContext).getId() + "",
+                            myBitmap, new ServerUtil.JsonResponseHandler() {
+                                @Override
+                                public void onResponse(JSONObject json) {
+
+
+                                    Toast.makeText(mContext, "서버에 이미지파일 업로드 완료", Toast.LENGTH_SHORT).show();
+                                    profileImg.setImageBitmap(myBitmap);
+                                }
+                            });
+
 
                 } catch (IOException e) {
 //                    예외가 실제로 발생하면 대처하는 부분 : catch
