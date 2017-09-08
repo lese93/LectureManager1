@@ -30,7 +30,6 @@ public class ServerUtil {
 
     public static void send_message(final Context context, final String user_id, final String writer_id, final String content, final JsonResponseHandler handler) {
         String url = BASE_URL + "mobile/send_message";
-        //		String registrationId = ContextUtil.getRegistrationId(context);
 
         Map<String, String> data = new HashMap<String, String>();
         data.put("user_id", user_id);

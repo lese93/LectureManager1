@@ -1,9 +1,12 @@
 package kr.co.tjeit.lecturemanager;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import org.json.JSONObject;
 
 import kr.co.tjeit.lecturemanager.data.User;
 import kr.co.tjeit.lecturemanager.util.ContextUtil;
@@ -29,7 +32,17 @@ public class SendMessageActivity extends BaseActivity {
     @Override
     public void setupEvents() {
 
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ServerUtil.send_message(mContext, receiveUserNameTxt.getText().toString(), ContextUtil.getLoginUser(mContext).getUserId(), contentEdt.getText().toString(), new ServerUtil.JsonResponseHandler() {
+                    @Override
+                    public void onResponse(JSONObject json) {
 
+                    }
+                });
+            }
+        });
     }
 
     @Override
