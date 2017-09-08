@@ -76,7 +76,8 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".SendMessageActivity"></activity>
+        <activity android:name=".SendMessageActivity" />
+        <activity android:name=".CheckMessageActivity"></activity>
     </application>
 
 </manifest>

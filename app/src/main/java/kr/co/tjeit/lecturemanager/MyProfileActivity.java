@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.gun0912.tedpermission.PermissionListener;
 import com.gun0912.tedpermission.TedPermission;
 
@@ -33,6 +32,7 @@ public class MyProfileActivity extends BaseActivity {
     private Button editProfileBtn;
     private TextView userIdTxt;
     private TextView phoneTxt;
+    private Button checkMessageBtn;
 
 //    아이디, 폰번 표시
 
@@ -47,6 +47,14 @@ public class MyProfileActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        checkMessageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, CheckMessageActivity.class);
+                startActivity(intent);
+            }
+        });
 
         profileImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -217,6 +225,7 @@ public class MyProfileActivity extends BaseActivity {
     @Override
     public void bindViews() {
         this.editProfileBtn = (Button) findViewById(R.id.editProfileBtn);
+        this.checkMessageBtn = (Button) findViewById(R.id.checkMessageBtn);
         this.phoneTxt = (TextView) findViewById(R.id.phoneTxt);
         this.userIdTxt = (TextView) findViewById(R.id.userIdTxt);
         this.nameTxt = (TextView) findViewById(R.id.nameTxt);
