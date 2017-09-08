@@ -60,9 +60,7 @@ public class MyProfileActivity extends BaseActivity {
 
                                 Toast.makeText(mContext, "모든 허가가 완료 되었다.", Toast.LENGTH_SHORT).show();
 
-                                Intent intent = new Intent();
-                                intent.setType("image/*");
-                                intent.setAction(Intent.ACTION_PICK);
+                                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                                 startActivityForResult(intent, REQ_FOR_GALLERY);
 
                             }
