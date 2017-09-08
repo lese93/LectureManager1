@@ -182,8 +182,8 @@ public class ServerUtil {
         data.put("user_id", id);
         data.put("password", pw);
 
-        String token = FirebaseInstanceId.getInstance().getToken();
-        data.put("deviceToken", token);
+        data.put("os", "Android");
+        data.put("deviceToken", FirebaseInstanceId.getInstance().getToken());
 
         AsyncHttpRequest.post(context, url,  data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
@@ -409,6 +409,11 @@ public class ServerUtil {
         data.put("uid", uid);
         data.put("name", name);
         data.put("profile_url", profile);
+
+//        디바이스토큰을 서버에 보내주는 데이터로 추가
+
+        data.put("os", "Android");
+        data.put("deviceToken", FirebaseInstanceId.getInstance().getToken());
 
         AsyncHttpRequest.post(context, url,  data, true, new AsyncHttpRequest.HttpResponseHandler() {
 
