@@ -6,6 +6,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import kr.co.tjeit.lecturemanager.data.User;
+import kr.co.tjeit.lecturemanager.util.ContextUtil;
+import kr.co.tjeit.lecturemanager.util.ServerUtil;
 
 public class SendMessageActivity extends BaseActivity {
 
@@ -26,6 +28,7 @@ public class SendMessageActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
 
     }
 
