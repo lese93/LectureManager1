@@ -17,6 +17,7 @@ public class ViewStudentInfoActivity extends BaseActivity {
 
     User mUser = null;
     private TextView phoneTxt;
+    private Button sendMessageBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +34,15 @@ public class ViewStudentInfoActivity extends BaseActivity {
 
     @Override
     public void setupEvents() {
+
+        sendMessageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SendMessageActivity.class);
+                intent.putExtra("student", mUser);
+                startActivity(intent);
+            }
+        });
 
         callBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +67,7 @@ public class ViewStudentInfoActivity extends BaseActivity {
 
     @Override
     public void bindViews() {
+        this.sendMessageBtn = (Button) findViewById(R.id.sendMessageBtn);
         this.callBtn = (Button) findViewById(R.id.callBtn);
         this.phoneTxt = (TextView) findViewById(R.id.phoneTxt);
         this.userIdTxt = (TextView) findViewById(R.id.userIdTxt);
