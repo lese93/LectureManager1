@@ -1,9 +1,11 @@
 package kr.co.tjeit.lecturemanager;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.ListView;
 
 public class CheckMessageActivity extends BaseActivity {
+
+    private android.widget.ListView messageListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,5 +29,6 @@ public class CheckMessageActivity extends BaseActivity {
     @Override
     public void bindViews() {
 
+        this.messageListView = (ListView) findViewById(R.id.messageListView);
     }
 }
